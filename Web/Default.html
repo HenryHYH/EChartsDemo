@@ -42,7 +42,7 @@
                 }],
                 yAxis: [{
                     type: 'value',
-                    splitArea: { show: true }                    
+                    splitArea: { show: true }
                 }],
                 series: [{
                     name: 'Total Agricultural Machinery Power',
@@ -74,9 +74,10 @@
                     mapType: 'china',
                     selectedMode: 'multiple',
                     itemStyle: {
-                        normal: { label: { show: true } },
-                        emphasis: { label: { show: true } }
+                        //normal: { label: { show: true } },
+                        //emphasis: { label: { show: true } }
                     },
+                    nameMap: { '广东': 'Guangdong', '广西': 'Guangxi' },
                     data: [{ name: '广东', selected: true }]
                 }]
             });
