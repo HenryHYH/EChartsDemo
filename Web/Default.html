@@ -5,11 +5,119 @@
     <title>Hello world</title>
 </head>
 <body>
+    <div id="testMap" style="height:500px; border:1px solid #ccc; padding:10px;"></div>
     <div id="chartArea" style="height:500px; border:1px solid #ccc; padding:10px;"></div>
     <div id="mainMap" style="height:500px; border: 1px solid #ccc; padding:10px;"></div>
     <script type="text/javascript" src="/lib/echarts-plain-map.js"></script>
+    <script type="text/javascript" src="/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         function BindChart() {
+            //require('echarts/util/mapData/params').params.HK = {
+            //    getGeoJson: function (callback) {
+            //        $.getJSON('/Data.js', callback);
+            //    }
+            //}
+            echarts.util.mapData.params.params.HK = {
+                getGeoJson: function (callback) {
+                    $.getJSON('/Data.js', callback);
+                }
+            };
+
+            var testMap = echarts.init(document.getElementById('testMap'));
+            testMap.setOption({
+                title: {
+                    text: '香港18区人口密度 （2011）',
+                    subtext: '人口密度数据来自Wikipedia',
+                    sublink: 'http://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E8%A1%8C%E6%94%BF%E5%8D%80%E5%8A%83#cite_note-12'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c} (p / km2)'
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    x: 'right',
+                    y: 'center',
+                    feature: {
+                        mark: true,
+                        dataView: { readOnly: false },
+                        restore: true,
+                        saveAsImage: true
+                    }
+                },
+                dataRange: {
+                    min: 800,
+                    max: 50000,
+                    text: ['High', 'Low'],
+                    calculable: true,
+                    color: ['orangered', 'yellow', 'lightskyblue']
+                },
+                series: [
+                    {
+                        name: '香港18区人口密度',
+                        type: 'map',
+                        mapType: 'HK', // 自定义扩展图表类型
+                        itemStyle: {
+                            normal: { label: { show: true } },
+                            emphasis: { label: { show: true } }
+                        },
+                        data: [
+                            { name: '中西区', value: 20057.34 },
+                            { name: '湾仔', value: 15477.48 },
+                            { name: '东区', value: 31686.1 },
+                            { name: '南区', value: 6992.6 },
+                            { name: '油尖旺', value: 44045.49 },
+                            { name: '深水埗', value: 40689.64 },
+                            { name: '九龙城', value: 37659.78 },
+                            { name: '黄大仙', value: 45180.97 },
+                            { name: '观塘', value: 55204.26 },
+                            { name: '葵青', value: 21900.9 },
+                            { name: '荃湾', value: 4918.26 },
+                            { name: '屯门', value: 5881.84 },
+                            { name: '元朗', value: 4178.01 },
+                            { name: '北区', value: 2227.92 },
+                            { name: '大埔', value: 2180.98 },
+                            { name: '沙田', value: 9172.94 },
+                            { name: '西贡', value: 3368 },
+                            { name: '离岛', value: 806.98 }
+                        ],
+                        // 自定义名称映射
+                        nameMap: {
+                            'Central and Western': '中西区',
+                            'Eastern': '东区',
+                            'Islands': '离岛',
+                            'Kowloon City': '九龙城',
+                            'Kwai Tsing': '葵青',
+                            'Kwun Tong': '观塘',
+                            'North': '北区',
+                            'Sai Kung': '西贡',
+                            'Sha Tin': '沙田',
+                            'Sham Shui Po': '深水埗',
+                            'Southern': '南区',
+                            'Tai Po': '大埔',
+                            'Tsuen Wan': '荃湾',
+                            'Tuen Mun': '屯门',
+                            'Wan Chai': '湾仔',
+                            'Wong Tai Sin': '黄大仙',
+                            'Yau Tsim Mong': '油尖旺',
+                            'Yuen Long': '元朗'
+                        },
+                        // 文本位置修正
+                        textFixed: {
+                            'Yau Tsim Mong': [-10, 0]
+                        },
+                        // 文本直接经纬度定位
+                        geoCoord: {
+                            'Islands': [113.95, 22.26]
+                        }
+                    }
+                ]
+            });
+
+
+
+
             var myChart = echarts.init(document.getElementById('chartArea'));
             var option = {
                 title: { text: "Hello world" },
@@ -51,33 +159,33 @@
                 }, {
                     name: 'Number of Large and Medium-sized Agricultural Tractors',
                     type: 'bar',
-                    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+                    data: [{ name: "北京", value: 10.6 }, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
                 }]
             };
             myChart.setOption(option);
 
             var myChart2 = echarts.init(document.getElementById('mainMap'));
             myChart2.setOption({
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{b}'
-                },
-                dataRange: {
-                    min: 0,
-                    color: ['red', 'yellow'],
-                    text: ['高', '低'],
-                    max: 2000
-                },
+                //tooltip: {
+                //    trigger: 'item',
+                //    formatter: '{b}'
+                //},
+                //dataRange: {
+                //    min: 0,
+                //    color: ['red', 'yellow'],
+                //    text: ['高', '低'],
+                //    max: 2000
+                //},
                 series: [{
                     name: '中国',
                     type: 'map',
-                    mapType: 'china',
-                    selectedMode: 'multiple',
-                    itemStyle: {
-                        //normal: { label: { show: true } },
-                        //emphasis: { label: { show: true } }
-                    },
-                    nameMap: { '广东': 'Guangdong', '广西': 'Guangxi' },
+                    //mapType: 'china',
+                    //selectedMode: 'multiple',
+                    //itemStyle: {
+                    //    normal: { label: { show: true } },
+                    //    emphasis: { label: { show: true } }
+                    //},
+                    //nameMap: { '广东': 'Guangdong', '广西': 'Guangxi' },
                     data: [{ name: '广东', selected: true }]
                 }]
             });
