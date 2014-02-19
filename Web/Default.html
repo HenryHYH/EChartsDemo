@@ -12,14 +12,9 @@
     <script type="text/javascript" src="/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         function BindChart() {
-            //require('echarts/util/mapData/params').params.HK = {
-            //    getGeoJson: function (callback) {
-            //        $.getJSON('/Data.js', callback);
-            //    }
-            //}
             echarts.util.mapData.params.params.HK = {
                 getGeoJson: function (callback) {
-                    $.getJSON('/Data.js', callback);
+                    $.getJSON('/Data3.js', callback);
                 }
             };
 

@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data.js" />
+    <Content Include="Data2.js" />
+    <Content Include="Data3.js" />
     <Content Include="Default.html" />
     <Content Include="lib\echarts-plain-map.js" />
     <Content Include="lib\jquery-1.10.2.min.js" />
